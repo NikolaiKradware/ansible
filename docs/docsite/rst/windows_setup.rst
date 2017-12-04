@@ -139,7 +139,7 @@ listener created and configured.
 To view the current listeners that are running on the WinRM service, run the
 following command::
 
-    winrm enumerate winrm/config/Listeners
+    winrm enumerate winrm/config/Listener
 
 This will output something like the following::
 
@@ -232,7 +232,7 @@ Delete WinRM Listener
 +++++++++++++++++++++
 To remove a WinRM listener:
 
-.. code-block: powershell
+.. code-block:: powershell
 
     # remove all listeners
     Remove-Item -Path WSMan:\localhost\Listener\* -Recurse -Force

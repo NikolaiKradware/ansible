@@ -19,16 +19,16 @@
 # Make coding more python3-ish
 from __future__ import (absolute_import, division, print_function)
 
-from nose.plugins.skip import SkipTest
-from ansible.module_utils.aws.core import HAS_BOTO3
-from ansible.module_utils import basic
-from ansible.module_utils.basic import to_bytes
-from ansible.compat.tests.mock import MagicMock
-import json
 import copy
 
+import pytest
+
+from ansible.module_utils.aws.core import HAS_BOTO3
+from ansible.compat.tests.mock import MagicMock
+from units.modules.utils import set_module_args
+
 if not HAS_BOTO3:
-    raise SkipTest("test_api_gateway.py requires the `boto3` and `botocore` modules")
+    pytestmark = pytest.mark.skip("test_api_gateway.py requires the `boto3` and `botocore` modules")
 
 # these are here cause ... boto!
 from botocore.exceptions import ClientError
@@ -43,11 +43,6 @@ base_module_args = {
     "principal": 123456,
     "action": "lambda:*"
 }
-
-
-def set_module_args(mod_args):
-    args = json.dumps({'ANSIBLE_MODULE_ARGS': mod_args})
-    basic._ANSIBLE_ARGS = to_bytes(args)
 
 
 def test_module_is_created_sensibly():
